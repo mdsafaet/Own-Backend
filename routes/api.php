@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\BuyerInquiryController;
+use App\Http\Controllers\Api\CertificationController;
 use App\Http\Controllers\Api\FactoryHeroController;
 use App\Http\Controllers\Api\FactoryPartnerController;
 use App\Http\Controllers\Api\HeroSlideController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\Api\NewsArticleController;
 use App\Http\Controllers\Api\ProductCategoryController;
 use App\Http\Controllers\Api\ProductHeroController;
 use App\Http\Controllers\Api\PurposeSectionController;
+use App\Http\Controllers\Api\ShowroomProductController;
 use App\Http\Controllers\Api\SiteSettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,10 +45,22 @@ Route::prefix('news')->group(function () {
 });
 
 //product-categories
-
 Route::get('/product-categories',[ProductCategoryController::class, 'index']);
 Route::get('/product-hero',[ProductHeroController::class, 'show']);
-
 //factory-matrix
 Route::get('/factory-partners',[FactoryPartnerController::class, 'index']);
 Route::get('/factory-hero',[FactoryHeroController::class, 'show']);
+
+//innovation-hub
+
+
+Route::get('/showroom-products',[ShowroomProductController::class, 'index']);
+Route::get('/showroom-products/{slug}',[ShowroomProductController::class, 'show']);
+
+Route::post('/buyer-inquiries',[BuyerInquiryController::class, 'store'])->middleware('throttle:10,1');
+
+
+//sustainability
+Route::get('/certifications', [CertificationController::class, 'index']);
+
+
