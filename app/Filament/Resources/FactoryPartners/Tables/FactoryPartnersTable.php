@@ -8,6 +8,8 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class FactoryPartnersTable
@@ -25,35 +27,52 @@ class FactoryPartnersTable
                     ->weight('bold'),
 
                 TextColumn::make('category')
+                    ->label('Category')
                     ->badge()
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('specialization')
+                    ->label('Specialization')
                     ->limit(45)
+                    ->tooltip(fn ($state): ?string => $state)
                     ->searchable()
                     ->toggleable(),
 
                 IconColumn::make('compliance')
-                    ->label('Compliant')
+                    ->label('Compliance verified')
                     ->boolean()
+                    ->trueIcon('heroicon-o-check-badge')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
                     ->sortable(),
 
                 TextColumn::make('leed')
                     ->label('LEED')
                     ->badge()
-                    ->placeholder('Not provided')
+                    ->placeholder('Not specified')
+                    ->color(fn (?string $state): string => match ($state) {
+                        'Platinum' => 'info',
+                        'Gold' => 'warning',
+                        'Silver' => 'gray',
+                        'Certified' => 'success',
+                        default => 'gray',
+                    })
                     ->sortable(),
 
                 TextColumn::make('capacity')
                     ->label('Monthly Capacity')
-                    ->placeholder('Not provided'),
+                    ->placeholder('Available on request')
+                    ->searchable(),
 
                 IconColumn::make('profile')
-                    ->label('PDF')
-                    ->boolean(
-                        fn ($state): bool => filled($state)
-                    ),
+                    ->label('Profile PDF')
+                    ->boolean(fn ($state): bool => filled($state))
+                    ->trueIcon('heroicon-o-document-arrow-down')
+                    ->falseIcon('heroicon-o-document')
+                    ->trueColor('success')
+                    ->falseColor('gray'),
 
                 IconColumn::make('is_active')
                     ->label('Visible')
@@ -71,7 +90,21 @@ class FactoryPartnersTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('category')
+                    ->options([
+                        'Woven' => 'Woven',
+                        'Knit' => 'Knit',
+                        'Sweater' => 'Sweater',
+                        'Tailoring' => 'Tailoring',
+                        'Activewear' => 'Activewear',
+                        'Home Textile' => 'Home Textile',
+                    ]),
+
+                TernaryFilter::make('compliance')
+                    ->label('Compliance verified'),
+
+                TernaryFilter::make('is_active')
+                    ->label('Website visibility'),
             ])
             ->recordActions([
                 EditAction::make(),

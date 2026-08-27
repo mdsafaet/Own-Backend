@@ -6,23 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class BuyerInquiry extends Model
 {
-    protected $fillable = [
-        'company_name',
-        'contact_person',
-        'email',
-        'country',
-        'product_code',
-        'estimated_quantity',
-        'target_price',
-        'target_delivery_date',
-        'attachment',
-        'message',
-        'status',
-        'internal_notes',
-        'contacted_at',
-        'ip_address',
-        'user_agent',
-    ];
+protected $fillable = [
+    'inquiry_type',
+    'company_name',
+    'contact_person',
+    'email',
+    'country',
+    'product_code',
+    'product_category',
+    'required_standard',
+    'target_market',
+    'estimated_quantity',
+    'target_price',
+    'target_delivery_date',
+    'message',
+    'attachment',
+    'status',
+];
 
     protected function casts(): array
     {

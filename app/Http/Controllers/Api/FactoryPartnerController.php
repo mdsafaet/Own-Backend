@@ -16,23 +16,17 @@ class FactoryPartnerController extends Controller
             ->orderBy('sort_order')
             ->orderBy('id')
             ->get()
-            ->map(function (FactoryPartner $factory) {
+            ->map(function (FactoryPartner $factory): array {
                 return [
                     'id' => $factory->id,
                     'name' => $factory->name,
                     'category' => $factory->category,
-                    'specialization' =>
-                        $factory->specialization,
-                    'compliance' => $factory->compliance,
+                    'specialization' => $factory->specialization,
+                    'compliance_verified' => (bool) $factory->compliance,
                     'leed' => $factory->leed,
                     'capacity' => $factory->capacity,
-
-                    'profile' => $factory->profile
-                        ? url(
-                            Storage::disk('public')->url(
-                                $factory->profile
-                            )
-                        )
+                    'profile_url' => $factory->profile
+                        ? url(Storage::disk('public')->url($factory->profile))
                         : null,
                 ];
             });

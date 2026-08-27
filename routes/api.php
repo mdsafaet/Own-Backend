@@ -47,18 +47,15 @@ Route::prefix('news')->group(function () {
 //product-categories
 Route::get('/product-categories',[ProductCategoryController::class, 'index']);
 Route::get('/product-hero',[ProductHeroController::class, 'show']);
+
 //factory-matrix
 Route::get('/factory-partners',[FactoryPartnerController::class, 'index']);
 Route::get('/factory-hero',[FactoryHeroController::class, 'show']);
 
 //innovation-hub
-
-
 Route::get('/showroom-products',[ShowroomProductController::class, 'index']);
 Route::get('/showroom-products/{slug}',[ShowroomProductController::class, 'show']);
-
 Route::post('/buyer-inquiries',[BuyerInquiryController::class, 'store'])->middleware('throttle:10,1');
-
 
 //sustainability
 Route::get('/certifications', [CertificationController::class, 'index']);

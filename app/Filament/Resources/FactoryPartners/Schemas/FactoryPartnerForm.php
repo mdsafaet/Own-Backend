@@ -4,8 +4,8 @@ namespace App\Filament\Resources\FactoryPartners\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -17,9 +17,7 @@ class FactoryPartnerForm
         return $schema
             ->components([
                 Section::make('Factory Information')
-                    ->description(
-                        'Enter the primary information displayed in the factory directory.'
-                    )
+                    ->description('Enter the information displayed in the factory directory.')
                     ->schema([
                         TextInput::make('name')
                             ->label('Factory name')
@@ -44,9 +42,7 @@ class FactoryPartnerForm
 
                         Textarea::make('specialization')
                             ->label('Specialization')
-                            ->placeholder(
-                                'Example: T-Shirts, Polo Shirts, Hoodies'
-                            )
+                            ->placeholder('Example: Shirts, trousers, jackets and shorts')
                             ->rows(3)
                             ->maxLength(1000)
                             ->columnSpanFull(),
@@ -57,35 +53,34 @@ class FactoryPartnerForm
                     ->schema([
                         TextInput::make('capacity')
                             ->label('Monthly capacity')
-                            ->placeholder('Example: 1.2 Million pcs')
-                            ->maxLength(255),
+                            ->placeholder('Example: 540,000 pcs/month')
+                            ->maxLength(255)
+                            ->helperText('Leave empty when the monthly capacity is not confirmed.'),
 
                         Select::make('leed')
                             ->label('LEED status')
                             ->options([
-                                'Platinum' => 'Platinum',
-                                'Gold' => 'Gold',
-                                'Silver' => 'Silver',
-                                'Certified' => 'Certified',
-                                'Own Factory' => 'Own Factory',
-                                'Not Available' => 'Not Available',
+                                'Platinum' => 'LEED Platinum',
+                                'Gold' => 'LEED Gold',
+                                'Silver' => 'LEED Silver',
+                                'Certified' => 'LEED Certified',
                             ])
-                            ->searchable()
-                            ->native(false),
+                            ->placeholder('Not specified')
+                            ->native(false)
+                            ->nullable()
+                            ->helperText('Select a value only when the LEED certification is confirmed.'),
 
                         Toggle::make('compliance')
                             ->label('Compliance verified')
-                            ->helperText(
-                                'Enable this when the factory compliance has been verified.'
-                            )
-                            ->default(false),
+                            ->helperText('Enable this when the factory compliance information has been verified.')
+                            ->default(false)
+                            ->onColor('success')
+                            ->offColor('gray'),
                     ])
                     ->columns(2),
 
                 Section::make('Factory Profile')
-                    ->description(
-                        'Upload a PDF that visitors can download from the website.'
-                    )
+                    ->description('Upload the factory PDF that visitors can download.')
                     ->schema([
                         FileUpload::make('profile')
                             ->label('Factory profile PDF')
@@ -95,12 +90,10 @@ class FactoryPartnerForm
                             ->acceptedFileTypes([
                                 'application/pdf',
                             ])
-                            ->maxSize(10240)
+                            ->maxSize(51200)
                             ->downloadable()
                             ->openable()
-                            ->helperText(
-                                'Only PDF files are allowed. Maximum size: 10 MB.'
-                            )
+                            ->helperText('Only PDF files are allowed. Maximum size: 50 MB.')
                             ->columnSpanFull(),
                     ]),
 
@@ -108,6 +101,7 @@ class FactoryPartnerForm
                     ->schema([
                         Toggle::make('is_active')
                             ->label('Show in factory directory')
+                            ->helperText('Disable this to hide the factory from the public website.')
                             ->default(true),
 
                         TextInput::make('sort_order')
