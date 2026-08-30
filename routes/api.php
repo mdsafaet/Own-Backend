@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\BuyerInquiryController;
 use App\Http\Controllers\Api\CertificationController;
+use App\Http\Controllers\Api\EqwoolsHeroController;
+use App\Http\Controllers\Api\EqwoolsProductApplicationController;
 use App\Http\Controllers\Api\FactoryHeroController;
 use App\Http\Controllers\Api\FactoryPartnerController;
 use App\Http\Controllers\Api\HeroSlideController;
@@ -59,5 +61,9 @@ Route::post('/buyer-inquiries',[BuyerInquiryController::class, 'store'])->middle
 
 //sustainability
 Route::get('/certifications', [CertificationController::class, 'index']);
+
+//eqwools-product-applications
+Route::get('/eqwools-product-applications',[ EqwoolsProductApplicationController::class,'index',]);
+    Route::get('/eqwools-hero',[EqwoolsHeroController::class,'show',]);
 
 
