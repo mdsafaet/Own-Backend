@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Api\BusinessHourController;
 use App\Http\Controllers\Api\BuyerInquiryController;
 use App\Http\Controllers\Api\CertificationController;
+use App\Http\Controllers\Api\ContactOfficeController;
 use App\Http\Controllers\Api\EqwoolsHeroController;
 use App\Http\Controllers\Api\EqwoolsProductApplicationController;
 use App\Http\Controllers\Api\FactoryHeroController;
 use App\Http\Controllers\Api\FactoryPartnerController;
+use App\Http\Controllers\Api\FooterSettingController;
+use App\Http\Controllers\Api\GarmentAccessoryCategoryController;
 use App\Http\Controllers\Api\HeroSlideController;
 use App\Http\Controllers\Api\JobApplicationController;
 use App\Http\Controllers\Api\JobController;
@@ -26,6 +30,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/site-settings', [SiteSettingController::class, 'show']);
 Route::get('/hero-slides', [HeroSlideController::class, 'index']);
+Route::get('/footer',[FooterSettingController::class,'show',]);
 Route::get('/purpose-section', [PurposeSectionController::class, 'show']);
 
 //about us
@@ -65,5 +70,12 @@ Route::get('/certifications', [CertificationController::class, 'index']);
 //eqwools-product-applications
 Route::get('/eqwools-product-applications',[ EqwoolsProductApplicationController::class,'index',]);
     Route::get('/eqwools-hero',[EqwoolsHeroController::class,'show',]);
+
+    //garment-accessory-categories
+Route::get('/garment-accessory-categories',[GarmentAccessoryCategoryController::class,'index',]);
+
+//contact-offices
+Route::get('/contact-offices',[ ContactOfficeController::class,'index',]);
+Route::get('/business-hours',[BusinessHourController::class, 'show']);
 
 

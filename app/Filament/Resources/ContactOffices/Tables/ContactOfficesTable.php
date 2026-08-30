@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\GarmentAccessoryCategories\Tables;
+namespace App\Filament\Resources\ContactOffices\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class GarmentAccessoryCategoriesTable
+class ContactOfficesTable
 {
     public static function configure(
         Table $table
@@ -20,38 +19,44 @@ class GarmentAccessoryCategoriesTable
             ->defaultSort('sort_order')
             ->reorderable('sort_order')
             ->columns([
-                ImageColumn::make('image')
-                    ->label('Image')
-                    ->disk('public')
-                    ->visibility('public')
-                    ->square(),
-
-                TextColumn::make('title')
-                    ->label('Category')
+                TextColumn::make(
+                    'country'
+                )
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
 
-                TextColumn::make(
-                    'description'
-                )
-                    ->limit(50)
+                TextColumn::make('title')
                     ->placeholder(
-                        'No description'
+                        'Not provided'
+                    ),
+
+                TextColumn::make(
+                    'company'
+                )
+                    ->placeholder(
+                        'Not provided'
                     )
                     ->toggleable(),
 
-                TextColumn::make('icon')
-                    ->label('Icon')
-                    ->badge()
-                    ->placeholder('Default'),
+                TextColumn::make('email')
+                    ->searchable()
+                    ->placeholder(
+                        'Not provided'
+                    ),
 
-                TextColumn::make('products')
-                    ->label('Products')
-                    ->badge()
-                    ->separator(',')
-                    ->limitList(3)
-                    ->expandableLimitedList(),
+                TextColumn::make('phone')
+                    ->placeholder(
+                        'Not provided'
+                    )
+                    ->toggleable(),
+
+                IconColumn::make(
+                    'featured'
+                )
+                    ->label('Featured')
+                    ->boolean()
+                    ->sortable(),
 
                 IconColumn::make(
                     'is_active'
