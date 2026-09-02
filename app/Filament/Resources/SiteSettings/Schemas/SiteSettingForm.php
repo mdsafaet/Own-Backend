@@ -31,9 +31,9 @@ class SiteSettingForm
                             ->directory('site')
                             ->visibility('public')
                             ->imagePreviewHeight('120')
-                            ->maxSize(2048)
+                            ->maxSize(10240)
                             ->helperText(
-                                'Upload PNG, JPG, WebP or SVG. Maximum size: 2 MB.'
+                                'Upload PNG, JPG, WebP or SVG. Maximum size: 10 MB.'
                             )
                             ->columnSpanFull(),
 
