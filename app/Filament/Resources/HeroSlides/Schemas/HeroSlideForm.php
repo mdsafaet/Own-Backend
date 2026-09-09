@@ -19,11 +19,11 @@ class HeroSlideForm
             ->components([
                 Section::make('Slide Image')
                     ->description(
-                        'Upload the background image for this carousel slide.'
+                        'The image is required. All text and link fields are optional.'
                     )
                     ->schema([
                         FileUpload::make('image')
-                            ->label('Background Image')
+                            ->label('Product Image')
                             ->image()
                             ->acceptedFileTypes([
                                 'image/jpeg',
@@ -34,126 +34,93 @@ class HeroSlideForm
                             ->disk('public')
                             ->directory('hero-slides')
                             ->visibility('public')
-                            ->imagePreviewHeight('250')
-                            ->maxSize(5120)
+                            ->imagePreviewHeight('260')
+                            ->maxSize(10240 )
                             ->required()
                             ->helperText(
-                                'Recommended size: 1920 × 1080 pixels. Maximum size: 5 MB.'
+                                'Recommended: 1200 × 1500 pixels. Maximum: 10 MB.'
                             )
                             ->columnSpanFull(),
 
                         TextInput::make('alt')
                             ->label('Image Alternative Text')
                             ->placeholder(
-                                'Apparel sourcing and garment manufacturing'
+                                'Knitwear product development'
                             )
                             ->maxLength(255)
                             ->helperText(
-                                'Optional. Describe the image for accessibility.'
+                                'Optional, but recommended for accessibility.'
                             )
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Slide Content')
+                Section::make('Card Content')
                     ->description(
-                        'All content fields are optional.'
+                        'Leave these fields empty when you want to display only the image.'
                     )
                     ->schema([
-                        TextInput::make('eyebrow')
-                            ->label('Small Heading')
-                            ->placeholder(
-                                'Trusted apparel sourcing from Bangladesh'
-                            )
-                            ->maxLength(255)
-                            ->columnSpanFull(),
-
                         TextInput::make('title')
-                            ->label('Main Title')
-                            ->placeholder('Your Vision.')
+                            ->label('Title')
+                            ->placeholder('Knitwear')
                             ->maxLength(255),
 
                         TextInput::make(
                             'highlighted_title'
                         )
-                            ->label('Highlighted Title')
+                            ->label('Short Highlight')
                             ->placeholder(
-                                'Our Sourcing Excellence.'
+                                'Premium product development'
                             )
+                            ->maxLength(255),
+
+                        TextInput::make('eyebrow')
+                            ->label('Small Label')
+                            ->placeholder('Product Category')
                             ->maxLength(255),
 
                         Textarea::make('description')
                             ->label('Description')
                             ->placeholder(
-                                'Connecting global fashion brands with reliable apparel manufacturers.'
+                                'Premium yarns and advanced knitting capabilities.'
                             )
-                            ->rows(5)
+                            ->rows(4)
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
 
-                Section::make('Primary Button')
+                Section::make('Optional Link')
                     ->description(
-                        'Leave both fields empty to hide the primary button.'
+                        'Leave both fields empty if the image card should not have a link.'
                     )
                     ->schema([
                         TextInput::make(
                             'primary_button_label'
                         )
-                            ->label('Button Text')
-                            ->placeholder(
-                                'Send Us Your Inquiry'
-                            )
+                            ->label('Link Text')
+                            ->placeholder('Explore Category')
                             ->maxLength(100),
 
                         TextInput::make(
                             'primary_button_link'
                         )
-                            ->label('Button Link')
+                            ->label('Link URL')
                             ->placeholder(
-                                '/contact#inquiry'
+                                '/products/apparels'
                             )
-                            ->maxLength(500)
-                            ->helperText(
-                                'You can use an internal path such as /contact or a complete external URL.'
-                            ),
-                    ])
-                    ->columns(2),
-
-                Section::make('Secondary Button')
-                    ->description(
-                        'Leave both fields empty to hide the secondary button.'
-                    )
-                    ->schema([
-                        TextInput::make(
-                            'secondary_button_label'
-                        )
-                            ->label('Button Text')
-                            ->placeholder(
-                                'Explore Our Services'
-                            )
-                            ->maxLength(100),
-
-                        TextInput::make(
-                            'secondary_button_link'
-                        )
-                            ->label('Button Link')
-                            ->placeholder('/services')
-                            ->maxLength(500)
-                            ->helperText(
-                                'You can use an internal path such as /services or a complete external URL.'
-                            ),
+                            ->maxLength(500),
                     ])
                     ->columns(2),
 
                 Section::make('Display Settings')
                     ->schema([
                         Select::make('position')
-                            ->label('Content Position')
+                            ->label('Image Position')
                             ->options([
                                 'left' => 'Left',
+                                'center' => 'Center',
                                 'right' => 'Right',
                             ])
-                            ->default('left')
+                            ->default('center')
                             ->native(false)
                             ->required(),
 
@@ -165,9 +132,9 @@ class HeroSlideForm
                             ->required(),
 
                         Toggle::make('is_active')
-                            ->label('Active')
+                            ->label('Visible')
                             ->helperText(
-                                'Only active slides will appear on the website.'
+                                'Only visible slides appear on the website.'
                             )
                             ->default(true)
                             ->required(),

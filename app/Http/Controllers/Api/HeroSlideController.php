@@ -12,7 +12,7 @@ class HeroSlideController extends Controller
     public function index(): JsonResponse
     {
         $slides = HeroSlide::query()
-            ->where('is_active', true)
+            ->active()
             ->orderBy('sort_order')
             ->orderBy('id')
             ->get()
@@ -22,47 +22,54 @@ class HeroSlideController extends Controller
                 return [
                     'id' => $slide->id,
 
-                    'image' => url(
-                        Storage::disk('public')
-                            ->url($slide->image)
-                    ),
+                    'image' => $slide->image
+                        ? url(
+                            Storage::disk('public')
+                                ->url($slide->image)
+                        )
+                        : null,
 
                     'alt' => $slide->alt,
+                    'eyebrow' => $slide->eyebrow,
+                    'title' => $slide->title,
 
-                    'eyebrow' =>
-                        $slide->eyebrow,
-
-                    'title' =>
-                        $slide->title,
-
+                    /*
+                     * The new carousel can use either
+                     * highlightedTitle or subtitle.
+                     */
                     'highlightedTitle' =>
                         $slide->highlighted_title,
+
+                    'subtitle' =>
+                        $slide->description,
 
                     'description' =>
                         $slide->description,
 
+                    'linkLabel' =>
+                        $slide->primary_button_label,
+
+                    'link' =>
+                        $slide->primary_button_link,
+
                     'primaryButton' => [
                         'label' =>
-                            $slide
-                                ->primary_button_label,
+                            $slide->primary_button_label,
 
                         'link' =>
-                            $slide
-                                ->primary_button_link,
+                            $slide->primary_button_link,
                     ],
 
                     'secondaryButton' => [
                         'label' =>
-                            $slide
-                                ->secondary_button_label,
+                            $slide->secondary_button_label,
 
                         'link' =>
-                            $slide
-                                ->secondary_button_link,
+                            $slide->secondary_button_link,
                     ],
 
                     'position' =>
-                        $slide->position,
+                        $slide->position ?? 'center',
 
                     'sortOrder' =>
                         $slide->sort_order,

@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\ProductHeroController;
 use App\Http\Controllers\Api\PurposeSectionController;
 use App\Http\Controllers\Api\ShowroomProductController;
 use App\Http\Controllers\Api\SiteSettingController;
+use App\Http\Controllers\Api\TestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,4 +79,6 @@ Route::get('/garment-accessory-categories',[GarmentAccessoryCategoryController::
 Route::get('/contact-offices',[ ContactOfficeController::class,'index',]);
 Route::get('/business-hours',[BusinessHourController::class, 'show']);
 
+
+Route::get('/testimonials',[TestimonialController::class, 'index']);
 
