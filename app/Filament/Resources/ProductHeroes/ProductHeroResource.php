@@ -22,7 +22,7 @@ class ProductHeroResource extends Resource
     protected static string|BackedEnum|null $navigationIcon =
         Heroicon::OutlinedPhoto;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Products';
+    protected static string|UnitEnum|null $navigationGroup = 'Apparels';
 
     protected static ?string $navigationLabel = 'Product Hero';
 

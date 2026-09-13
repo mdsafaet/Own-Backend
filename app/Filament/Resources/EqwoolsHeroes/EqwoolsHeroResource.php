@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\GarmentAccessoryCategories;
+namespace App\Filament\Resources\EqwoolsHeroes;
 
-use App\Filament\Resources\GarmentAccessoryCategories\Pages\CreateGarmentAccessoryCategory;
-use App\Filament\Resources\GarmentAccessoryCategories\Pages\EditGarmentAccessoryCategory;
-use App\Filament\Resources\GarmentAccessoryCategories\Pages\ListGarmentAccessoryCategories;
-use App\Filament\Resources\GarmentAccessoryCategories\Schemas\GarmentAccessoryCategoryForm;
-use App\Filament\Resources\GarmentAccessoryCategories\Tables\GarmentAccessoryCategoriesTable;
-use App\Models\GarmentAccessoryCategory;
+use App\Filament\Resources\EqwoolsHeroes\Pages\CreateEqwoolsHero;
+use App\Filament\Resources\EqwoolsHeroes\Pages\EditEqwoolsHero;
+use App\Filament\Resources\EqwoolsHeroes\Pages\ListEqwoolsHeroes;
+use App\Filament\Resources\EqwoolsHeroes\Schemas\EqwoolsHeroForm;
+use App\Filament\Resources\EqwoolsHeroes\Tables\EqwoolsHeroesTable;
+use App\Models\EqwoolsHero;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -15,38 +15,32 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class GarmentAccessoryCategoryResource extends Resource
+class EqwoolsHeroResource extends Resource
 {
     protected static ?string $model =
-        GarmentAccessoryCategory::class;
+        EqwoolsHero::class;
 
-    protected static string|BackedEnum|null
-        $navigationIcon =
-            Heroicon::OutlinedTag;
+    protected static string|BackedEnum|null $navigationIcon =
+        Heroicon::OutlinedPhoto;
 
-    protected static string|UnitEnum|null
-        $navigationGroup =
-            'Garment Accessories';
+    protected static string|UnitEnum|null $navigationGroup =
+        'EQWOOLS';
 
-    protected static ?string
-        $navigationLabel =
-            'Accessory Categories';
+    protected static ?string $navigationLabel =
+        'EQWOOLS Hero';
 
-    protected static ?string
-        $modelLabel =
-            'Accessory Category';
+    protected static ?string $modelLabel =
+        'EQWOOLS Hero';
 
-    protected static ?string
-        $pluralModelLabel =
-            'Accessory Categories';
+    protected static ?string $pluralModelLabel =
+        'EQWOOLS Heroes';
 
-    protected static ?int
-        $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(
         Schema $schema
     ): Schema {
-        return GarmentAccessoryCategoryForm::configure(
+        return EqwoolsHeroForm::configure(
             $schema
         );
     }
@@ -54,7 +48,7 @@ class GarmentAccessoryCategoryResource extends Resource
     public static function table(
         Table $table
     ): Table {
-        return GarmentAccessoryCategoriesTable::configure(
+        return EqwoolsHeroesTable::configure(
             $table
         );
     }
@@ -63,17 +57,15 @@ class GarmentAccessoryCategoryResource extends Resource
     {
         return [
             'index' =>
-                ListGarmentAccessoryCategories::route(
-                    '/'
-                ),
+                ListEqwoolsHeroes::route('/'),
 
             'create' =>
-                CreateGarmentAccessoryCategory::route(
+                CreateEqwoolsHero::route(
                     '/create'
                 ),
 
             'edit' =>
-                EditGarmentAccessoryCategory::route(
+                EditEqwoolsHero::route(
                     '/{record}/edit'
                 ),
         ];
